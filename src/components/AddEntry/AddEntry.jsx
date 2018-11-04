@@ -3,8 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import { FilePond, registerPlugin } from 'react-filepond';
-import 'filepond/dist/filepond.min.css';
+
 import { Typography, Button, Divider } from '@material-ui/core';
 import FileBase64 from 'react-file-base64';
 import TextField from '@material-ui/core/TextField';
@@ -15,7 +14,7 @@ import api from '../../utils/api';
 const clarifaiApp = new Clarifai.App({
 	apiKey: 'aa6af86e8861469684d627709efaaa25'
 });
-
+console.log('hi', process.env.FAUNADB_SECRET);
 const styles = theme => ({
 	root: {
 		padding: '25px 50px'
@@ -38,17 +37,20 @@ const styles = theme => ({
 		padding: '15px'
 	},
 	ingredientsWrapper: {
-		marginTop: '8px',
+		marginTop: '14px',
 		padding: 20,
 		backgroundColor: 'transparent',
 		border: '1px solid #b7b7b7',
 		borderRadius: '5px',
 		display: 'flex',
 		flexWrap: 'wrap'
+	},
+	img: {
+		marginTop: '10px',
+		borderRadius: '5px',
+		width: '100%'
 	}
 });
-
-const ingredients = ['Banana', 'Cookie'];
 
 class AddEntry extends Component {
 	state = {
@@ -210,14 +212,19 @@ class AddEntry extends Component {
 					</Grid>
 					<Grid item xs={12}>
 						{/* <FilePond allowFileEncod="true" /> */}
-						<FileBase64 onDone={this.getFiles.bind(this)} />
 					</Grid>
+
 					<Grid item xs={12}>
-						<Typography variant="caption">Ingredients</Typography>
-						<div className={classes.ingredientsWrapper}>{ingredientsButtons}</div>
-					</Grid>
-					<Grid item xs={12}>
-						<Divider />
+						<Grid container spacing={24}>
+							<Grid item xs={12} md={6}>
+								<FileBase64 onDone={this.getFiles.bind(this)} />
+								<img src={this.state.files.base64} className={classes.img} />
+							</Grid>
+							<Grid item xs={12} md={6}>
+								<Typography variant="caption">Ingredients</Typography>
+								<div className={classes.ingredientsWrapper}>{ingredientsButtons}</div>
+							</Grid>
+						</Grid>
 					</Grid>
 
 					<Grid item xs={12}>
