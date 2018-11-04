@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 
 import Fastfood from '@material-ui/icons/Fastfood';
-
+import { Link } from 'react-router-dom';
 const styles = {
 	root: {
 		flexGrow: 1
@@ -26,6 +26,10 @@ const styles = {
 	},
 	buttonGroup: {
 		marginLeft: 'auto'
+	},
+	white: {
+		color: 'white',
+		textDecoration: 'none'
 	}
 };
 
@@ -36,12 +40,19 @@ function AppHeader(props) {
 			<AppBar position="static">
 				<div className={classes.wrapper}>
 					<Toolbar>
-						<IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-							<Fastfood />
-						</IconButton>
+						<Link to="/diary">
+							<IconButton className={classes.menuButton} className={classes.white} aria-label="Menu">
+								<Fastfood />
+							</IconButton>
+						</Link>
+
 						<div className={classes.buttonGroup}>
-							<Button color="inherit">Add New</Button>
-							<Button color="inherit">View Diary</Button>
+							<Link to="/add">
+								<Button className={classes.white}>Add New</Button>
+							</Link>
+							<Link to="/diary">
+								<Button className={classes.white}>View Diary</Button>
+							</Link>
 						</div>
 					</Toolbar>
 				</div>

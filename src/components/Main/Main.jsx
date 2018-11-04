@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import AddEntry from '../AddEntry/AddEntry';
 import ListDiary from '../ListDiary/ListDiary';
-
+import { Route } from 'react-router-dom';
 const styles = theme => ({
 	root: {
 		flexGrow: 1,
@@ -17,8 +17,11 @@ const Main = props => {
 	const { classes } = props;
 	return (
 		<div className={classes.root}>
-			<AddEntry />
-			<ListDiary />
+			<Route exact path="/" component={ListDiary} />
+			<Route path="/add" component={AddEntry} />
+			<Route path="/diary" component={ListDiary} />
+			{/* <AddEntry />
+			<ListDiary /> */}
 		</div>
 	);
 };
