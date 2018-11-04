@@ -7,12 +7,11 @@ const styles = theme => ({
 	button: {
 		margin: theme.spacing.unit,
 		position: 'relative',
-		padding: '20px 30px'
-	},
-	remove: {
-		position: 'absolute',
-		top: 0,
-		right: 0
+		fontSize: 10,
+		padding: '0px 5px'
+		// [theme.breakpoints.down('sm')]: {
+		// 	width: '100%'
+		// }
 	}
 });
 
@@ -21,7 +20,6 @@ function IngredientButton(props) {
 	return (
 		<div>
 			<Button key={props.key} variant="contained" className={classes.button}>
-				<div className={classes.remove}>X</div>
 				{props.name}
 			</Button>
 		</div>

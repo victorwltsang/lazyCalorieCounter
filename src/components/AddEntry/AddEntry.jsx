@@ -11,7 +11,7 @@ import TextField from '@material-ui/core/TextField';
 import moment from 'moment';
 import Clarifai from 'clarifai';
 import IngredientButton from './IngredientButton/IngredientButton';
-
+import api from '../../utils/api';
 const clarifaiApp = new Clarifai.App({
 	apiKey: 'aa6af86e8861469684d627709efaaa25'
 });
@@ -54,7 +54,8 @@ class AddEntry extends Component {
 	state = {
 		title: '',
 		date: '',
-		files: []
+		files: [],
+		ingredients: []
 	};
 
 	componentDidMount() {
@@ -80,23 +81,31 @@ class AddEntry extends Component {
 		};
 
 		console.log(entry);
+
+		api.create(entry).then(response => {
+			console.log(response);
+			// got back to list page
+		});
 	};
 
-	getFiles(files) {
+	async getFiles(files) {
 		this.setState({ files: files });
 		// clarifaiApp here
 
-		var base64Img = this.state.files.base64.split('data:image/png;base64,')[1];
-		console.log(base64Img);
-		clarifaiApp.models.predict(Clarifai.GENERAL_MODEL, { base64: base64Img }).then(
-			function(response) {
-				// do something with response
-				console.log(response);
-			},
-			function(err) {
-				// there was an error
-			}
-		);
+		var base64Img = this.state.files.base64.split(',')[1];
+
+		let clarifaiResponse = await clarifaiApp.models
+			.predict(Clarifai.FOOD_MODEL, { base64: base64Img })
+			.then(response => {
+				return response.rawData.outputs[0].data.concepts.map(concept => {
+					return concept.name;
+				});
+			});
+
+		console.log(clarifaiResponse);
+		this.setState({
+			ingredients: clarifaiResponse
+		});
 	}
 
 	// save entry
@@ -159,8 +168,8 @@ class AddEntry extends Component {
 	render() {
 		const { classes } = this.props;
 		console.log(this.state);
-		console.log(ingredients);
-		let ingredientsButtons = ingredients.map(ing => {
+		console.log(this.state.ingredients);
+		let ingredientsButtons = this.state.ingredients.map(ing => {
 			return <IngredientButton key={ing} name={ing} />;
 		});
 		return (

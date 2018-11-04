@@ -3,6 +3,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 
 import AddEntry from '../AddEntry/AddEntry';
+import ListDiary from '../ListDiary/ListDiary';
 
 const styles = theme => ({
 	root: {
@@ -17,6 +18,7 @@ const Main = props => {
 	return (
 		<div className={classes.root}>
 			<AddEntry />
+			<ListDiary />
 		</div>
 	);
 };
