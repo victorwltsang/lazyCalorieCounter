@@ -69,7 +69,7 @@ class ListDiary extends Component {
             <GridListTile key="Subheader" cols={2} style={{ height: "auto" }}>
               <ListSubheader component="div">Food Diary</ListSubheader>
             </GridListTile>
-            {this.state.list.map(item => (
+            {this.state.list.reverse().map(item => (
               <GridListTile key={item.ref["@ref"].id}>
                 <img src={item.data.fileBase} alt={item.data.title} />
                 <GridListTileBar
