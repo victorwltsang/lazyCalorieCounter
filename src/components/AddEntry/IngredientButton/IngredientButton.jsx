@@ -17,9 +17,16 @@ const styles = theme => ({
 
 function IngredientButton(props) {
 	const { classes } = props;
+
 	return (
 		<div>
-			<Button key={props.key} variant="contained" className={classes.button}>
+			<Button
+				key={props.key}
+				variant="contained"
+				color="primary"
+				className={classes.button}
+				onClick={props.onClickHandler}
+			>
 				{props.name}
 			</Button>
 		</div>

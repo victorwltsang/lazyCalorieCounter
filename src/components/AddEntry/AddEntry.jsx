@@ -11,6 +11,7 @@ import moment from 'moment';
 import Clarifai from 'clarifai';
 import IngredientButton from './IngredientButton/IngredientButton';
 import api from '../../utils/api';
+import { Redirect } from 'react-router-dom';
 const clarifaiApp = new Clarifai.App({
 	apiKey: 'aa6af86e8861469684d627709efaaa25'
 });
@@ -57,7 +58,8 @@ class AddEntry extends Component {
 		title: '',
 		date: '',
 		files: [],
-		ingredients: []
+		ingredients: [],
+		isToggleOn: true
 	};
 
 	componentDidMount() {
@@ -79,14 +81,13 @@ class AddEntry extends Component {
 			title: this.state.title,
 			date: this.state.date,
 			fileName: this.state.files.name,
-			fileBase: this.state.files.base64
+			fileBase: this.state.files.base64,
+			ingredients: this.state.ingredients
 		};
 
-		console.log(entry);
-
 		api.create(entry).then(response => {
-			console.log(response);
-			// got back to list page
+			// console.log(response);
+			this.props.history.push('/');
 		});
 	};
 
@@ -104,75 +105,25 @@ class AddEntry extends Component {
 				});
 			});
 
-		console.log(clarifaiResponse);
+		// console.log(clarifaiResponse);
 		this.setState({
 			ingredients: clarifaiResponse
 		});
 	}
 
-	// save entry
-
-	// saveTodo = e => {
-	//     e.preventDefault();
-	//     const { todos } = this.state;
-	//     const todoValue = this.inputElement.value;
-
-	//     if (!todoValue) {
-	//       alert("Please add Todo title");
-	//       this.inputElement.focus();
-	//       return false;
-	//     }
-
-	//     // reset input to empty
-	//     this.inputElement.value = "";
-
-	//     const todoInfo = {
-	//       title: todoValue,
-	//       completed: false
-	//     };
-	//     // Optimistically add todo to UI
-	//     const newTodoArray = [
-	//       {
-	//         data: todoInfo,
-	//         ts: new Date().getTime() * 10000
-	//       }
-	//     ];
-
-	//     const optimisticTodoState = newTodoArray.concat(todos);
-
-	//     this.setState({
-	//       todos: optimisticTodoState
-	//     });
-	//     // Make API request to create new todo
-	//     api
-	//       .create(todoInfo)
-	//       .then(response => {
-	//         console.log(response);
-	//         // remove temporaryValue from state and persist API response
-	//         const persistedState = removeOptimisticTodo(todos).concat(response);
-	//         // Set persisted value to state
-	//         this.setState({
-	//           todos: persistedState
-	//         });
-	//       })
-	//       .catch(e => {
-	//         console.log("An API error occurred", e);
-	//         const revertedState = removeOptimisticTodo(todos);
-	//         // Reset to original state
-	//         this.setState({
-	//           todos: revertedState
-	//         });
-	//       });
-	//   };
-
-	//
+	toggleIngredients = id => {
+		// alert(id);
+		// this.setState({
+		// 	toggle: !toggle
+		// });
+	};
 
 	render() {
 		const { classes } = this.props;
 		console.log(this.state);
 		console.log(this.state.ingredients);
 		let ingredientsButtons = this.state.ingredients.map(ing => {
-			return <IngredientButton key={ing} name={ing} />;
+			return <IngredientButton key={ing} name={ing} onClickHandler={() => this.toggleIngredients(ing)} />;
 		});
 		return (
 			<Paper className={classes.root}>
