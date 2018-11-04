@@ -17,7 +17,7 @@ const Main = props => {
 	const { classes } = props;
 	return (
 		<div className={classes.root}>
-			<Route exact path="/" component={ListDiary} />
+			<Route exact path="/" component={AddEntry} />
 			<Route path="/add" component={AddEntry} />
 			<Route path="/diary" component={ListDiary} />
 			{/* <AddEntry />
