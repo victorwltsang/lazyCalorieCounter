@@ -75,6 +75,12 @@ class ListDiary extends Component {
                 <GridListTileBar
                   title={item.data.title}
                   subtitle={<span>date: {item.data.date}</span>}
+                  subtitle={<span>Calories: 100</span>}
+                  actionIcon={
+                    <IconButton className={classes.icon}>
+                      <InfoIcon />
+                    </IconButton>
+                  }
                 />
               </GridListTile>
             ))}
