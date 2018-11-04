@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^3.3.2",
     "@material-ui/icons": "^3.0.1",
+    "clarifai": "^2.9.0",
     "faunadb": "^2.5.2",
     "filepond": "^3.3.0",
     "moment": "^2.22.2",
