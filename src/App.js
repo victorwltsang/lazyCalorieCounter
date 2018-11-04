@@ -5,6 +5,7 @@ import Main from "./components/Main/Main";
 import api from "./utils/api";
 import sortByDate from "./utils/sortByDate";
 import isLocalHost from "./utils/isLocalHost";
+import { Router, Link } from "@reach/router";
 
 export default class App extends Component {
   componentDidMount() {
